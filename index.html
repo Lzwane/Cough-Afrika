@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; media-src 'self' blob:; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cough Afrika — AI Tuberculosis Cough Screening</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============================================================ SVG SPRITE (logo + icons) ============================================================ -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="gLogo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2C4F8E"/><stop offset="100%" stop-color="#0B1F3A"/>
+    </linearGradient>
+    <symbol id="ic-logo" viewBox="0 0 48 48">
+      <rect x="2" y="2" width="44" height="44" rx="13" fill="url(#gLogo)"/>
+      <path d="M8.5 27H15l4-11 5 22 4.5-15.5 3 4.5h8" fill="none" stroke="#F4F6F8" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="24" cy="18" r="2.4" fill="#C3C9D4"/>
+    </symbol>
+    <symbol id="ic-home" viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 20c1.4-3.8 4.4-5.5 7.5-5.5s6.1 1.7 7.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="ic-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+    <symbol id="ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2 2M17.8 17.8l2 2M2.5 12h3M18.5 12h3M4.2 19.8l2-2M17.8 6.2l2-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="ic-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></symbol>
+    <symbol id="ic-lungs" viewBox="0 0 24 24"><path d="M12 3v7m0 0c-1-2-4-2-5 1s0 8 2 8 3-2 3-4V10zm0 0c1-2 4-2 5 1s0 8-2 8-3-2-3-4V10z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-check" viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-alert" viewBox="0 0 24 24"><path d="M12 4 21.5 20H2.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10v4.5M12 17.2v.1" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+    <symbol id="ic-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3.8 9.5h16.4M3.8 14.5h16.4M12 3.5c2.4 2.4 3.6 5.4 3.6 8.5S14.4 18.1 12 20.5c-2.4-2.4-3.6-5.4-3.6-8.5S9.6 5.9 12 3.5z" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-clipboard" viewBox="0 0 24 24"><rect x="5.5" y="4.5" width="13" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="9" y="3" width="6" height="3" rx="1" fill="currentColor"/><path d="M8.5 11h7M8.5 14.5h7M8.5 18h4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="ic-logout" viewBox="0 0 24 24"><path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3M15 16l4-4-4-4M19 12H9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m4.5 7.5 7.5 6 7.5-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============================================================ TOAST ============================================================ -->
+<div class="toast" id="toast"><svg><use href="#ic-check"/></svg><span id="toastMsg"></span></div>
+
+<!-- ============================================================ VIEW: LANDING ============================================================ -->
+<div id="view-landing">
+  <nav class="nav">
+    <div class="wrap">
+      <a href="#" class="logo"><svg class="mark"><use href="#ic-logo"/></svg><span class="word">Cough<em>Afrika</em></span></a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#howworks">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn" data-act="toggleTheme" title="Toggle theme"><svg id="themeIconSun" class="hidden"><use href="#ic-sun"/></svg><svg id="themeIconMoon"><use href="#ic-moon"/></svg></button>
+        <button class="btn btn-ghost btn-sm" data-act="showAuth" data-arg="login">Log in</button>
+        <button class="btn btn-primary btn-sm" data-act="showAuth" data-arg="signup">Get started</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow-pill"><span class="dot dot-low"></span> Built for community &amp; clinic screening</div>
+        <h1>Screen for TB from the sound of <span class="accent">a single cough.</span></h1>
+        <p class="lead">Cough Afrika listens to a short recording, checks it alongside a few symptom questions, and gives a triage read‑out in under a minute — so more people get referred to a clinic before the disease spreads.</p>
+        <div class="cta-row">
+          <button class="btn btn-primary" data-act="showAuth" data-arg="signup">Start a free screening</button>
+          <button class="btn btn-ghost" data-act="scrollToId" data-arg="howworks">See how it works</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="wave-badge">
+          <div class="top-row"><span class="lbl">EXAMPLE READ‑OUT</span><span class="badge badge-low">Low risk</span></div>
+          <div class="wave-bars" id="heroBars"></div>
+          <div class="readout"><span>Illustration only — not a real result</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats-strip">
+    <div class="wrap">
+      <div><div class="figure">1,242</div><div class="caption">Verified cough recordings in training data</div></div>
+      <div><div class="figure">225</div><div class="caption">Linked clinical patient records</div></div>
+      <div><div class="figure">16</div><div class="caption">Acoustic biomarkers per clip (MFCC, ZCR, RMS)</div></div>
+      <div><div class="figure">&lt;60s</div><div class="caption">From recording to risk result</div></div>
+    </div>
+  </section>
+
+  <section class="section" id="howworks">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">The flow</div>
+        <h2>Three steps, no clinic visit required to get started</h2>
+      </div>
+      <div class="steps-row">
+        <div class="step-item"><div class="step-num">1</div><h3>Answer a few symptoms</h3><p>Cough duration, fever, night sweats, weight loss — the same red‑flag markers a nurse would ask about.</p></div>
+        <div class="step-item"><div class="step-num">2</div><h3>Record 2–3 coughs</h3><p>Cough naturally into your phone or laptop mic. We isolate the acoustic signal from background noise.</p></div>
+        <div class="step-item"><div class="step-num">3</div><h3>Get a risk read‑out</h3><p>A Low / Medium / High tier, an action recommendation, and a saved record you can bring to a clinic.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--paper-100)" id="trust">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">Why it works</div>
+        <h2>An acoustic AI model, plus a transparent symptom screen</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card"><div class="ic"><svg width="20" height="20"><use href="#ic-mic"/></svg></div><h3>Acoustic ensemble</h3><p>A 300‑tree random forest trained on 13 MFCCs plus spectral centroid, zero‑crossing rate and RMS energy from real TB and healthy cough recordings. It runs entirely in your browser.</p></div>
+        <div class="feature-card"><div class="ic"><svg width="20" height="20"><use href="#ic-clipboard"/></svg></div><h3>Guideline symptom screen</h3><p>Your answers are checked against the WHO four‑symptom screen — cough, fever, night sweats, weight loss — plus blood in cough and HIV status. It is rule‑based and visible, so a reassuring cough sound never hides a worrying symptom.</p></div>
+        <div class="feature-card"><div class="ic"><svg width="20" height="20"><use href="#ic-shield"/></svg></div><h3>Built to refer, not diagnose</h3><p>Every Medium or High result comes with a clear next step: get a GeneXpert or sputum test at your nearest clinic.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">About us</div>
+        <h2>A student‑built screening tool with a real clinical brief</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>Cough Afrika started as MediCode&amp;Cure: CoughAfrika, a final‑year CSIT capstone project focused on a hard, practical question — can the sound of a cough alone help flag tuberculosis risk early, in places where lab testing is slow or far away?</p>
+          <p>We built and evaluated the model against real linked data: verified TB and healthy cough recordings paired with matching clinical symptom records, benchmarking several models before settling on the acoustic model that powers the screening flow today, alongside a guideline‑based symptom screen.</p>
+          <p>The team spans machine learning, full‑stack development, and clinical‑risk research — the same mix of skills the judging brief called for: data understanding, modelling, and documentation that holds up to scrutiny.</p>
+          <div class="role-tags">
+            <span class="role-tag">Machine learning</span>
+            <span class="role-tag">Full‑stack development</span>
+            <span class="role-tag">Clinical risk research</span>
+            <span class="role-tag">Data engineering</span>
+          </div>
+          <div class="about-email">
+            <svg width="19" height="19"><use href="#ic-mail"/></svg>
+            <div><div class="t">Email us</div><a href="mailto:medicodecure@gmail.com">medicodecure@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="about-fact-list">
+          <div class="about-fact"><div class="num">01</div><div class="txt"><strong style="color:var(--text)">Two data modalities.</strong> Acoustic features (MFCCs, spectral centroid, ZCR, RMS) and clinical symptom records were cleaned, explored and engineered independently. The clinical model is bundled but held back until it is retrained on screening‑time inputs only.</div></div>
+          <div class="about-fact"><div class="num">02</div><div class="txt"><strong style="color:var(--text)">Benchmarked, not guessed.</strong> Logistic regression, random forest and gradient boosting were all tuned with grid search and compared on the same held‑out data before picking a final ensemble.</div></div>
+          <div class="about-fact"><div class="num">03</div><div class="txt"><strong style="color:var(--text)">Built for the last mile.</strong> The target deployment is a WhatsApp chatbot — no app install, no extra hardware, works on the phones people already carry.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--paper-100)" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">FAQ</div>
+        <h2>Common questions</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Is this a TB diagnosis?<span class="plus">+</span></summary>
+          <p>No. Cough Afrika is a triage and screening aid. A Medium or High result means "go get a confirmatory test" — GeneXpert MTB/RIF or sputum microscopy — not "you have TB."</p>
+        </details>
+        <details class="faq-item">
+          <summary>Where does my cough recording go?<span class="plus">+</span></summary>
+          <p>Your recording never leaves your device: the AI model runs inside your browser and the audio is analysed in memory and discarded. Accounts and your history stay in your browser. Only if you tick the optional consent box when saving a result, we also send your name, age, scores and triage result (never the audio) to MediCode&amp;Cure's secure database so a clinician can follow up.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Who is this built for?<span class="plus">+</span></summary>
+          <p>Both community members who want a quick first check, and health workers who need a fast triage tool for high‑volume screening in resource‑limited settings.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Does it work without a data connection?<span class="plus">+</span></summary>
+          <p>The screening flow itself runs entirely in your browser once the page has loaded, so it works offline after the first load. The planned WhatsApp version depends on your normal data or Wi‑Fi.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What does a Medium or High result mean I should do?<span class="plus">+</span></summary>
+          <p>Visit your nearest clinic for a sputum or GeneXpert test — sooner for High risk, within a few days for Medium — especially if your cough, fever or night sweats persist. A Low result does not rule TB out — if symptoms continue, get tested anyway.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">Contact</div>
+        <h2>Partner with us, or just say hello</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="row"><svg><use href="#ic-clipboard"/></svg><div><div class="t">For clinics &amp; NGOs</div><div class="d">Interested in piloting Cough Afrika at a clinic or community health event? We'd like to hear from you.</div></div></div>
+          <div class="row"><svg><use href="#ic-shield"/></svg><div><div class="t">Data &amp; privacy questions</div><div class="d">Ask us anything about how screenings are stored and used — see also the Privacy Policy in the footer.</div></div></div>
+          <div class="row"><svg><use href="#ic-globe"/></svg><div><div class="t">Based in South Africa</div><div class="d">Built as a CSIT capstone project, designed for Sub‑Saharan African deployment first.</div></div></div>
+        </div>
+        <div class="contact-form">
+          <div class="field"><label>Name</label><input type="text" id="cfName" placeholder="Your name" maxlength="80"></div>
+          <div class="field"><label>Email</label><input type="email" id="cfEmail" placeholder="you@example.com" maxlength="254"></div>
+          <div class="field"><label>Message</label><textarea id="cfMsg" maxlength="2000" placeholder="How can we help?"></textarea></div>
+          <button class="btn btn-primary" data-act="handleContactSubmit">Send message</button>
+          <div class="form-sent" id="formSent"><svg width="16" height="16"><use href="#ic-check"/></svg>Thanks — we'll get back to you soon.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap footer-top">
+      <div class="footer-col">
+        <a href="#" class="logo"><svg class="mark" style="width:30px;height:30px"><use href="#ic-logo"/></svg><span class="word" style="font-size:16px">Cough<em>Afrika</em></span></a>
+        <p style="margin-top:14px">AI‑assisted TB cough screening, built as a CSIT capstone project under the MediCode&amp;Cure initiative.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#howworks">How it works</a>
+        <a href="#trust">Why it works</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#about">About us</a>
+        <a href="#contact">Contact</a>
+        <a data-act="showAuth" data-arg="login">Log in</a>
+        <a data-act="showOwner">Owner portal</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a data-act="openLegal" data-arg="privacy">Privacy policy</a>
+        <a data-act="openLegal" data-arg="terms">Terms of use</a>
+      </div>
+    </div>
+    <div class="wrap">
+      <a href="#" class="logo"><svg class="mark" style="width:28px;height:28px"><use href="#ic-logo"/></svg><span class="word" style="font-size:15px">Cough<em>Afrika</em></span></a>
+      <p>© 2026 Cough Afrika · A MediCode&amp;Cure health intelligence initiative</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ============================================================ VIEW: AUTH ============================================================ -->
+<div id="view-auth" class="hidden">
+  <div class="auth-screen">
+    <div class="auth-brand">
+      <a href="#" class="logo" data-act="showLanding"><svg class="mark"><use href="#ic-logo"/></svg><span class="word">Cough<em>Afrika</em></span></a>
+      <blockquote>"A cough is data. We just needed to learn how to listen to it."
+        <cite>— MediCode&amp;Cure research note, CSIT 2026</cite>
+      </blockquote>
+      <div style="font-size:12px;color:#AEB9CC">Decentralized pulmonary screening for Sub‑Saharan Africa</div>
+    </div>
+    <div class="auth-form-pane">
+      <div class="auth-box">
+        <!-- LOGIN -->
+        <div id="loginForm">
+          <h2>Welcome back</h2>
+          <div class="sub">Log in to see your screening history.</div>
+          <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="you@example.com" maxlength="254" autocomplete="email"><div class="field-error" id="loginErr"></div></div>
+          <div class="field"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••" maxlength="128" autocomplete="current-password"></div>
+          <button class="btn btn-primary btn-block" data-act="handleLogin">Log in</button>
+          <button class="btn btn-ghost btn-block" style="margin-top:10px" data-act="quickDemo">Continue with demo account</button>
+          <div class="auth-switch">New here? <button data-act="switchAuth" data-arg="signup">Create an account</button></div>
+        </div>
+        <!-- SIGNUP -->
+        <div id="signupForm" class="hidden">
+          <h2>Create your account</h2>
+          <div class="sub">Takes less than a minute.</div>
+          <div class="field"><label>Full name</label><input type="text" id="suName" placeholder="Thandiwe Mokoena" maxlength="80" autocomplete="name"></div>
+          <div class="field"><label>Email</label><input type="email" id="suEmail" placeholder="you@example.com" maxlength="254" autocomplete="email"><div class="field-error" id="suErr"></div></div>
+          <div class="field"><label>Password</label><input type="password" id="suPassword" placeholder="At least 8 characters" maxlength="128" autocomplete="new-password"></div>
+          <div class="field"><label>I am a...</label>
+            <select id="suRole"><option value="patient">Community member</option><option value="worker">Health worker</option></select>
+          </div>
+          <button class="btn btn-primary btn-block" data-act="handleSignup">Create account</button>
+          <div class="auth-switch">Already registered? <button data-act="switchAuth" data-arg="login">Log in</button></div>
+        </div>
+        <div class="demo-note">Accounts are stored only in your browser on this device. Screening results are shared with MediCode&amp;Cure only if you tick the optional consent box when saving.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ VIEW: OWNER PORTAL (staff only) ============================================================ -->
+<div id="view-owner" class="hidden">
+  <div id="ownerLogin" class="auth-form-pane" style="min-height:100vh">
+    <div class="auth-box">
+      <h2>Owner sign-in</h2>
+      <div class="sub">MediCode&amp;Cure staff only. Patient records are only readable after signing in with an authorised account.</div>
+      <div class="field"><label for="ownerEmail">Email</label><input type="email" id="ownerEmail" maxlength="254" autocomplete="username"></div>
+      <div class="field"><label for="ownerPassword">Password</label><input type="password" id="ownerPassword" maxlength="128" autocomplete="current-password"><div class="field-error" id="ownerLoginErr"></div></div>
+      <button class="btn btn-primary btn-block" data-act="ownerSignIn">Sign in</button>
+      <button class="btn btn-ghost btn-block" style="margin-top:10px" data-act="showLanding">Back to site</button>
+    </div>
+  </div>
+  <div id="ownerPanel" class="hidden">
+    <div class="topbar">
+      <div><h1>Patient Records</h1><div class="sub" id="ownerCount">MediCode&amp;Cure clinical screening logs</div></div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn btn-primary btn-sm" data-act="ownerRefresh">Refresh list</button>
+        <button class="btn btn-ghost btn-sm" data-act="ownerSignOut">Sign out</button>
+      </div>
+    </div>
+    <div class="app-body">
+      <div class="card">
+        <div class="field"><input type="search" id="ownerSearch" placeholder="Search name, result or notes" maxlength="80" aria-label="Search records"></div>
+        <div class="scrollx">
+          <table class="owner-table">
+            <thead><tr><th>Date</th><th>Patient</th><th>Triage</th><th>Screener notes</th><th></th></tr></thead>
+            <tbody id="ownerPatientTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ APP SHELL (private) ============================================================ -->
+<div id="app-shell" class="app-shell">
+  <aside class="sidebar">
+    <a href="#" class="logo" data-act="showLanding"><svg class="mark"><use href="#ic-logo"/></svg><span class="word">Cough<em>Afrika</em></span></a>
+    <button class="side-link" data-app="dashboard" data-act="showApp" data-arg="dashboard"><svg><use href="#ic-home"/></svg>Dashboard</button>
+    <button class="side-link" data-app="screening" data-act="startScreening"><svg><use href="#ic-mic"/></svg>New screening</button>
+    <button class="side-link" data-app="history" data-act="showApp" data-arg="history"><svg><use href="#ic-clock"/></svg>History</button>
+    <button class="side-link" data-app="profile" data-act="showApp" data-arg="profile"><svg><use href="#ic-user"/></svg>Profile</button>
+    <div class="side-spacer"></div>
+    <button class="side-link" data-act="toggleTheme"><svg id="sideThemeSun" class="hidden"><use href="#ic-sun"/></svg><svg id="sideThemeMoon"><use href="#ic-moon"/></svg>Theme</button>
+    <button class="side-link" data-act="handleLogout"><svg><use href="#ic-logout"/></svg>Log out</button>
+    <div class="side-user">
+      <div class="avatar" id="sideAvatar">–</div>
+      <div class="who"><div class="name" id="sideName">–</div><div class="role" id="sideRole">–</div></div>
+    </div>
+  </aside>
+
+  <main class="app-main">
+    <!-- ---- DASHBOARD ---- -->
+    <div id="app-dashboard" class="app-view">
+      <div class="topbar">
+        <div><h1 id="dashGreeting">Welcome back</h1><div class="sub">Here's your screening overview</div></div>
+        <button class="icon-btn" data-act="toggleTheme"><svg id="topThemeSun" class="hidden"><use href="#ic-sun"/></svg><svg id="topThemeMoon"><use href="#ic-moon"/></svg></button>
+      </div>
+      <div class="app-body">
+        <div class="cta-banner">
+          <div><h2>Ready for your next screening?</h2><p>Takes under a minute — you'll need mic access for the cough recording step.</p></div>
+          <button class="btn btn-gold" data-act="startScreening"><svg width="16" height="16"><use href="#ic-plus"/></svg>Start screening</button>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="lbl">Total screenings</div><div class="val" id="statTotal">0</div></div>
+          <div class="stat-card"><div class="lbl">Most recent result</div><div class="val" id="statLast">—</div></div>
+          <div class="stat-card"><div class="lbl">Risk trend (last 6)</div><div class="sparkline" id="statTrend"></div></div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="section-title"><h3>Recent activity</h3><a data-act="showApp" data-arg="history" style="cursor:pointer">View all</a></div>
+            <div id="dashRecentList"></div>
+          </div>
+          <div class="card">
+            <div class="section-title"><h3>Recommended next step</h3></div>
+            <div id="dashTip" class="protocol-box"><p>No screenings yet — start one to get a personalised recommendation.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- SCREENING FLOW ---- -->
+    <div id="app-screening" class="app-view hidden">
+      <div class="topbar">
+        <div><h1>New screening</h1><div class="sub" id="screeningSub">Step 1 of 3 — symptom check</div></div>
+        <button class="icon-btn" data-act="cancelScreening" title="Cancel">✕</button>
+      </div>
+      <div class="app-body" style="max-width:640px">
+        <div class="stepper"><div class="seg" id="seg1"></div><div class="seg" id="seg2"></div><div class="seg" id="seg3"></div></div>
+        <div class="card">
+          <!-- STEP: symptoms -->
+          <div class="flow-step active" id="step-symptoms">
+            <div class="q-group">
+              <div class="q-label">How long have you had a cough?</div>
+              <div class="range-row"><input type="range" id="qDuration" min="0" max="8" step="1" value="1" data-input="durationInput"><span class="range-val" id="qDurationVal">1 week</span></div>
+            </div>
+            <div class="q-group">
+              <div class="q-label">Any of the following? <span class="q-hint" style="display:inline">(tap all that apply)</span></div>
+              <div class="toggle-row">
+                <button class="toggle-chip" data-sym="cough_bld" data-act="toggleChip">Blood in cough</button>
+                <button class="toggle-chip" data-sym="fever" data-act="toggleChip">Fever</button>
+                <button class="toggle-chip" data-sym="nght_swts" data-act="toggleChip">Night sweats</button>
+                <button class="toggle-chip" data-sym="un_wght_loss" data-act="toggleChip">Unexplained weight loss</button>
+                <button class="toggle-chip" data-sym="hiv_infected_a" data-act="toggleChip">HIV positive</button>
+                <button class="toggle-chip" data-sym="smkr_a" data-act="toggleChip">Currently smoke</button>
+              </div>
+            </div>
+            <div class="q-group">
+              <div class="q-label">Age</div>
+              <div class="range-row"><input type="range" id="qAge" min="1" max="90" step="1" value="32" data-input="ageInput"><span class="range-val" id="qAgeVal">32</span></div>
+            </div>
+            <button class="btn btn-primary btn-block" data-act="goStep" data-arg="record">Continue to recording</button>
+          </div>
+
+          <!-- STEP: record -->
+          <div class="flow-step" id="step-record">
+            <div class="rec-panel">
+              <div class="rec-ring" id="recRing"><button class="rec-btn" id="recBtn" data-act="toggleRecording"><svg><use href="#ic-mic"/></svg></button></div>
+              <div class="rec-timer" id="recTimer">00:00</div>
+              <div class="rec-status" id="recStatus">Tap the mic and cough naturally 2–3 times</div>
+              <div class="rec-tip">Best results: a quiet room, phone about 20 cm from your mouth, 5–10 seconds, no talking.</div>
+              <canvas id="waveCanvas" height="64"></canvas>
+              <div id="micError" class="mic-error hidden" role="alert"></div>
+            </div>
+            <button class="btn btn-primary btn-block" id="recContinueBtn" data-act="goStep" data-arg="analyzing" disabled>Analyze recording</button>
+            <button class="btn btn-ghost btn-block" style="margin-top:10px" data-act="goStep" data-arg="symptoms">Back</button>
+          </div>
+
+          <!-- STEP: analyzing -->
+          <div class="flow-step" id="step-analyzing">
+            <div class="analyzing">
+              <div class="spin"></div>
+              <div class="step-txt" id="analyzeTxt">Extracting acoustic features…</div>
+            </div>
+          </div>
+
+          <!-- STEP: results -->
+          <div class="flow-step" id="step-results">
+            <div class="result-top">
+              <div class="gauge-wrap"><svg id="gaugeSvg" viewBox="0 0 220 130" width="220" height="130"></svg></div>
+              <div class="gauge-num" id="gaugeNum">–</div>
+              <div class="gauge-tier" id="gaugeTier">–</div>
+              <div class="gauge-cap" id="gaugeCap">Acoustic model score</div>
+            </div>
+            <div class="tier-scale-title">Acoustic score bands</div>
+            <div class="tier-scale"><span style="color:#0D6B44">Low &lt;30%</span><span style="color:#8A5B0C">Medium 30–65%</span><span style="color:#A32E23">High &gt;65%</span></div>
+            <div class="tier-bar"><span style="width:30%;background:#1FAE7A"></span><span style="width:35%;background:var(--amber-500)"></span><span style="width:35%;background:var(--rose-500)"></span></div>
+            <div class="breakdown-row"><span>Acoustic AI model (16 audio features)</span><span class="v" id="rBreakAcoustic">–</span></div>
+            <div class="breakdown-row"><span>Symptom screen (WHO‑based)</span><span class="v" id="rBreakClinical">–</span></div>
+            <div class="breakdown-row"><span>Overall triage</span><span class="v" id="rBreakEnsemble">–</span></div>
+            <div class="result-notes hidden" id="rNotes"></div>
+            <div class="protocol-box" id="rProtocol"></div>
+            <div class="disclaimer">Research prototype — not a medical diagnosis. The acoustic score comes from a machine‑learning model trained on a small research dataset; it is not a calibrated probability of having TB and has not been clinically validated on phone‑browser recordings. Overall triage always leans cautious: the acoustic score alone can raise you to Medium but never to High, and a low score never overrides your symptoms. Only a clinic test (GeneXpert or sputum) can confirm or rule out TB.</div>
+            <label class="consent-box" id="consentBox"><input type="checkbox" id="shareConsent"><span>Optional: I agree to share this screening (my name, age, scores and result — never the audio) with MediCode&amp;Cure so a clinician can follow up. See the <a href="#" data-act="openLegal" data-arg="privacy">privacy policy</a>.</span></label>
+            <div class="result-actions">
+              <button class="btn btn-primary" data-act="saveScreeningAndGoDash">Save &amp; go to dashboard</button>
+              <button class="btn btn-ghost" data-act="restartScreening">New screening</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- HISTORY ---- -->
+    <div id="app-history" class="app-view hidden">
+      <div class="topbar"><div><h1>History</h1><div class="sub">Every screening you've saved on this device</div></div></div>
+      <div class="app-body">
+        <div class="card"><div id="historyList"></div></div>
+      </div>
+    </div>
+
+    <!-- ---- PROFILE ---- -->
+    <div id="app-profile" class="app-view hidden">
+      <div class="topbar"><div><h1>Profile</h1><div class="sub">Account details for this device</div></div></div>
+      <div class="app-body" style="max-width:520px">
+        <div class="card">
+          <div class="field"><label>Full name</label><input type="text" id="profName" maxlength="80"></div>
+          <div class="field"><label>Email</label><input type="email" id="profEmail" disabled></div>
+          <div class="field"><label>Role</label><input type="text" id="profRole" disabled></div>
+          <button class="btn btn-primary" data-act="saveProfile">Save changes</button>
+        </div>
+        <div class="danger-box">
+          <h4>Clear all local data</h4>
+          <p>Deletes your account and screening history from this browser. This can't be undone.</p>
+          <button class="btn btn-danger btn-sm" data-act="clearAllData">Delete my data</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <nav class="mobile-nav">
+    <button data-app="dashboard" data-act="showApp" data-arg="dashboard"><svg><use href="#ic-home"/></svg>Home</button>
+    <button data-act="startScreening"><svg><use href="#ic-mic"/></svg>Screen</button>
+    <button data-app="history" data-act="showApp" data-arg="history"><svg><use href="#ic-clock"/></svg>History</button>
+    <button data-app="profile" data-act="showApp" data-arg="profile"><svg><use href="#ic-user"/></svg>Profile</button>
+  </nav>
+</div>
+
+<!-- ============================================================ HISTORY DETAIL MODAL ============================================================ -->
+<div class="detail-modal-backdrop" id="detailModal" data-act="closeDetailBackdrop">
+  <div class="detail-modal">
+    <button class="x" data-act="closeDetail">✕</button>
+    <h3 id="dmTitle" style="margin:0 0 4px">Screening detail</h3>
+    <div class="sub" id="dmDate" style="font-size:13px;color:var(--text-dim);margin-bottom:16px"></div>
+    <div class="breakdown-row"><span>Acoustic model score</span><span class="v" id="dmAcoustic">–</span></div>
+    <div class="breakdown-row"><span>Symptom screen</span><span class="v" id="dmClinical">–</span></div>
+    <div class="breakdown-row"><span>Overall triage</span><span class="v" id="dmEnsemble">–</span></div>
+    <div class="protocol-box" id="dmProtocol" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<!-- ============================================================ LEGAL MODAL ============================================================ -->
+<div class="detail-modal-backdrop legal-modal" id="legalModal" data-act="closeLegalBackdrop">
+  <div class="detail-modal">
+    <button class="x" data-act="closeLegal">✕</button>
+    <h3 id="legalTitle" style="margin:0 0 4px">Privacy policy</h3>
+    <div id="legalBody"></div>
+  </div>
+</div>
+
+<script src="models/models-data.js"></script>
+<script src="tb-engine.js"></script>
+<script src="supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
